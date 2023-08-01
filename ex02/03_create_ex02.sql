@@ -24,7 +24,7 @@ CREATE TABLE libros (
     idioma NVARCHAR(100),
     formato NVARCHAR(100),
     clave_editorial INT,
-    FOREIGN KEY (clave_editorial) REFERENCES editoriales(clave_editorial)
+    FOREIGN KEY (clave_editorial) REFERENCES editoriales(clave_editorial) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE ejemplares (
@@ -34,7 +34,7 @@ CREATE TABLE ejemplares (
     edicion NVARCHAR(50),
     ubicacion NVARCHAR(100),
     categoria NVARCHAR(50),
-    FOREIGN KEY (clave_libro) REFERENCES libros(clave_libro)
+    FOREIGN KEY (clave_libro) REFERENCES libros(clave_libro) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE socios (
@@ -53,22 +53,22 @@ CREATE TABLE prestamos (
     fecha_devolucion DATE,
     notas NVARCHAR(500),
     PRIMARY KEY (clave_socio, clave_ejemplar, numero_orden),
-    FOREIGN KEY (clave_socio) REFERENCES socios(clave_socio),
-    FOREIGN KEY (clave_ejemplar) REFERENCES ejemplares(clave_ejemplar)
+    FOREIGN KEY (clave_socio) REFERENCES socios(clave_socio) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (clave_ejemplar) REFERENCES ejemplares(clave_ejemplar) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE tratas_sobre (
     clave_libro INT,
     clave_tema INT,
     PRIMARY KEY (clave_libro, clave_tema),
-    FOREIGN KEY (clave_libro) REFERENCES libros(clave_libro),
-    FOREIGN KEY (clave_tema) REFERENCES temas(clave_tema)
+    FOREIGN KEY (clave_libro) REFERENCES libros(clave_libro) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (clave_tema) REFERENCES temas(clave_tema) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE escrito_por (
     clave_libro INT,
     clave_autor INT,
     PRIMARY KEY (clave_libro, clave_autor),
-    FOREIGN KEY (clave_libro) REFERENCES libros(clave_libro),
-    FOREIGN KEY (clave_autor) REFERENCES autores(clave_autor)
+    FOREIGN KEY (clave_libro) REFERENCES libros(clave_libro) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (clave_autor) REFERENCES autores(clave_autor) ON UPDATE CASCADE ON DELETE CASCADE
 );
